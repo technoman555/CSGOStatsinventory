@@ -1,0 +1,13 @@
+body{
+    background-color:#cc8b24;
+}
+.gunCard{
+    background:#474644;
+    color: white;
+    border: solid Black 2px;
+    padding: 5px;
+    margin: 5px;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
