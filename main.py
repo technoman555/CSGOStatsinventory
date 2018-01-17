@@ -43,7 +43,7 @@ def hello(name=None):
 @app.route('/stats/<name>')
 def stats(name=None):
     statsList = []
-    res = http.request('GET', 'http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=4943F4DBDC56C1DD5560EA8A396B8DD5&steamid='+name)
+    res = http.request('GET', 'http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=<ADDYOUROWNKEY>&steamid='+name)
     data = json.loads(res.data.decode('utf-8'))
     for item in range(len(data['playerstats']['stats'])):
         statsList.append(data['playerstats']['stats'][item]['value'])
