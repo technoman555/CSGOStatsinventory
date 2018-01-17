@@ -18,6 +18,7 @@ def search():
 def hello(name=None):
     itemlist = []
     itemname = []
+    itemPrice = []
 
     res = http.request('GET','http://steamcommunity.com/inventory/'+name+'/730/2?l=english&count=5000')
     data= json.loads(res.data.decode('utf-8'))
@@ -25,12 +26,19 @@ def hello(name=None):
         return render_template('bad.html')
     else:
         for x in range(len(data['descriptions'])):
-            itemname.append(data['descriptions'][x]['market_name'])
+            itemname.append(data['descriptions'][x]['market_hash_name'])
             itemlist.append(data['descriptions'][x]['icon_url'])
-
+        res = http.request('GET', 'http://api.csgofast.com/price/all')
+        data = json.loads(res.data.decode('utf-8'))
+        for y in itemname:
+            try:
+                itemPrice.append(data[y])
+            except KeyError:
+                itemPrice.append("No Price found")
+                continue
         count = len(itemlist)
 
-        return render_template('hello.html', name=itemname ,list=itemlist, count=count)
+        return render_template('hello.html', name=itemname ,list=itemlist, price=itemPrice ,count=count)
 
 @app.route('/stats/<name>')
 def stats(name=None):
